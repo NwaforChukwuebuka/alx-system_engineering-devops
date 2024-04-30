@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Creating RSA key-pair with bits (-b) 4096 and private key (-f) -- and New (-N) pasphrase __
+ssh-keygen -b 4096 -N betty -f school

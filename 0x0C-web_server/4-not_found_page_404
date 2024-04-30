@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Configures an Nginx server on Ubuntu Machine
+# Nginx should listen on port 80
+# Serve/ return a page with Hello World string
+#
+
+echo -e "Update system and install Nginx.\n"
+sudo apt-get update -y -qq && \
+	 sudo apt-get install nginx -y
+
+# starting nginx service
+sudo service nginx start
+
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
+
+
+# Creating new index
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Setting up /redirect_me to my Linkedin Profile
+sudo sed -i '24i\	rewrite ^/redirect_me https://ng.linkedin.com/in/nwafor-chukwuebuka-samuel-aa54181a5 permanent;' /etc/nginx/sites-available/default
+
+# Set up a 404 page
+echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
+sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/default
+
+# Restarting nginx
+sudo service nginx restart
+
+echo -e "\nDone.\n"
